@@ -1,4 +1,5 @@
 import json
+from typing import Union
 
 from fastapi import FastAPI
 import aiohttp
@@ -69,7 +70,7 @@ async def send_xml_api_request():
                 b64 = json.loads(response)
                 iv = b64decode(b64['iv'])
 
-                # getFirst16Bytes(Base64Decode(encryptedData)
+                # removeFirst16Bytes(Base64Decode(encryptedData)
                 ct = b64decode(b64['encryptedData'])[:16]
                 cipher = AES.new(key, AES.MODE_ECB, iv)
                 pt = unpad(cipher.decrypt(ct), AES.block_size)
