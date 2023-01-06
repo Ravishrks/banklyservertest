@@ -30,33 +30,24 @@ async def send_xml_api_request():
         api_key = 'xUHvlTOtkLn37jnuG0Yp8zr2kivgRg6j'
         header = {'Content-Type': 'application/xml',
                   "apikey": api_key, "SrcApp": ''}
-        payload = """<xml>
-                <ReferenceNumber>20190704000084</ReferenceNumber>
-                <MerchantId>FLP0000001</MerchantId>
-                <MerchantPassword>admin12345</MerchantPassword>
-                <Product>VV01</Product>
-                <ProductCategory>1</ProductCategory>
-                <MobileNumber>9944838952</MobileNumber>
-                <TransactionRemark>FLIPKART Card Mobile Number
-                link</TransactionRemark>
-                </xml>"""
+        payload = ""
 
         # Encrypting data
-        key = get_random_bytes(16)
-        cipher = AES.new(key, AES.MODE_ECB)
-        ct_bytes = cipher.encrypt(pad(payload, AES.block_size))
-        iv = b64encode(cipher.iv).decode('utf-8')
-        encrypted_Data = b64encode(ct_bytes).decode('utf-8')
+        # key = get_random_bytes(16)
+        # cipher = AES.new(key, AES.MODE_ECB)
+        # ct_bytes = cipher.encrypt(pad(payload, AES.block_size))
+        # iv = b64encode(cipher.iv).decode('utf-8')
+        # ct = b64encode(ct_bytes).decode('utf-8')
 
         data = {
-            "requestId": "",
-            "service": "Bankly",
-            "encryptedKey": key,
-            "oaepHashingAlgorithm": "NONE",
-            "iv": iv,
-            "encryptedData": encrypted_Data,
-            "clientInfo": "",
-            "optionalParam": ""
+            # "requestId": "",
+            # "service": "",
+            # "encryptedKey": key,
+            # "oaepHashingAlgorithm": "NONE",
+            # "iv": iv,
+            # "encryptedData": ct,
+            # "clientInfo": "",
+            # "optionalParam": ""
 
 
         }
