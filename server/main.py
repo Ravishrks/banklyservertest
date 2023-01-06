@@ -33,11 +33,11 @@ async def send_xml_api_request():
         payload = ""
 
         # Encrypting data
-        # key = get_random_bytes(16)
-        # cipher = AES.new(key, AES.MODE_ECB)
-        # ct_bytes = cipher.encrypt(pad(payload, AES.block_size))
-        # iv = b64encode(cipher.iv).decode('utf-8')
-        # ct = b64encode(ct_bytes).decode('utf-8')
+        key = get_random_bytes(16)
+        cipher = AES.new(key, AES.MODE_ECB)
+        ct_bytes = cipher.encrypt(pad(payload, AES.block_size))
+        iv = b64encode(cipher.iv).decode('utf-8')
+        ct = b64encode(ct_bytes).decode('utf-8')
 
         data = {
             # "requestId": "",
