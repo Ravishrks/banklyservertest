@@ -36,7 +36,6 @@ async def send_xml_api_request():
         key = get_random_bytes(16)
         cipher = AES.new(key, AES.MODE_ECB)
         ct_bytes = cipher.encrypt(pad(payload, AES.block_size))
-        iv = b64encode(cipher.iv).decode('utf-8')
         ct = b64encode(ct_bytes).decode('utf-8')
 
         data = {
@@ -44,7 +43,7 @@ async def send_xml_api_request():
             # "service": "",
             # "encryptedKey": key,
             # "oaepHashingAlgorithm": "NONE",
-            # "iv": iv,
+            # "iv": '',
             # "encryptedData": ct,
             # "clientInfo": "",
             # "optionalParam": ""
