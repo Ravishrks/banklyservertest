@@ -71,7 +71,7 @@ async def send_xml_api_request():
                 iv = b64decode(b64['iv'])
 
                 # removeFirst16Bytes(Base64Decode(encryptedData)
-                ct = b64decode(b64['encryptedData'])[:16]
+                ct = b64decode(b64['encryptedData'])
                 cipher = AES.new(key, AES.MODE_ECB, iv)
                 pt = unpad(cipher.decrypt(ct), AES.block_size)
                 print("The message was: ", pt)
