@@ -65,17 +65,18 @@ async def send_xml_api_request():
 
         async with session.post(endpoint_url, headers=header, data=data) as response:
             #  decrypting response
+            pass
 
-            try:
-                b64 = json.loads(response)
-                iv = b64decode(b64['iv'])
+            # try:
+            #     b64 = json.loads(response)
+            #     iv = b64decode(b64['iv'])
 
-                # removeFirst16Bytes(Base64Decode(encryptedData)
-                ct = b64decode(b64['encryptedData'])
-                cipher = AES.new(key, AES.MODE_ECB, iv)
-                pt = unpad(cipher.decrypt(ct), AES.block_size)
-                print("The message was: ", pt)
-            except (ValueError, KeyError):
-                print("Incorrect decryption")
+            #     # removeFirst16Bytes(Base64Decode(encryptedData)
+            #     ct = b64decode(b64['encryptedData'])
+            #     cipher = AES.new(key, AES.MODE_ECB, iv)
+            #     pt = unpad(cipher.decrypt(ct), AES.block_size)
+            #     print("The message was: ", pt)
+            # except (ValueError, KeyError):
+            #     print("Incorrect decryption")
 
     return {"data": response.headers, }
