@@ -78,4 +78,4 @@ async def send_xml_api_request():
             # except (ValueError, KeyError):
             #     print("Incorrect decryption")
 
-    return {"data": response,"1":response.headers }
+    return {"data": response.json,"header":response.headers,'extra':response.text }
