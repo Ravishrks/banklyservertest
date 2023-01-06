@@ -48,14 +48,14 @@ async def send_xml_api_request():
         ct = b64encode(ct_bytes).decode('utf-8')
 
         data = {
-            "requestId": "234634654543543565",
+            "requestId": "23463465454354355",
             "service": "LinkedMobile",
             "encryptedKey": key,
             "oaepHashingAlgorithm": "NONE",
-            "iv": '',
+            # "iv": '',
             "encryptedData": ct,
-            "clientInfo": "",
-            "optionalParam": ""
+            # "clientInfo": "",
+            # "optionalParam": ""
 
 
         }
