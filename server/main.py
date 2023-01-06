@@ -30,7 +30,7 @@ async def send_xml_api_request():
         api_key = 'xUHvlTOtkLn37jnuG0Yp8zr2kivgRg6j'
         header = {'Content-Type': 'application/xml',
                   "apikey": api_key, "SrcApp": ''}
-        payload = ""
+        payload = b""
 
         # Encrypting data
         key = get_random_bytes(16)
