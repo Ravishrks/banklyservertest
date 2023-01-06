@@ -28,7 +28,7 @@ async def send_xml_api_request():
 
     async with aiohttp.ClientSession() as session:
         api_key = 'xUHvlTOtkLn37jnuG0Yp8zr2kivgRg6j'
-        header = {'Content-Type': 'application/xml',
+        header = {'Content-Type': 'application/json',
                   "apikey": api_key, "SrcApp": ''}
         payload = b"""<xml>
                     <ReferenceNumber>20190704000084</ReferenceNumber>
