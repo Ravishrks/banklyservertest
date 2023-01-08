@@ -31,7 +31,7 @@ async def send_link_mobile_api_request():
 
         # Company name to be passed in header
         src_app = 'Bankly'
-        # Generate random string for service id
+        # Generate random string for request id
         requist_id = ''.join(random.SystemRandom().choice(
             string.ascii_uppercase + string.digits) for _ in range(32))
         # Provided by ICICI
