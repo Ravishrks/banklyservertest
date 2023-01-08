@@ -25,7 +25,7 @@ def read_root():
 
 @app.get("/send-payload/")
 # send request to ICICI server
-async def send_xml_api_request():
+async def send_link_mobile_api_request():
 
     async with aiohttp.ClientSession() as session:
 
