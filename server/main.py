@@ -1,7 +1,10 @@
-# Fastapi server
+"""Fastapi Server for Bankly"""
 
 import random
 import string
+from base64 import b64encode
+
+
 
 from fastapi import FastAPI
 import aiohttp
@@ -12,40 +15,36 @@ from Crypto.PublicKey import RSA
 
 from Crypto.Random import get_random_bytes
 from Crypto.Util.Padding import pad
-from base64 import b64encode
 
 
 app = FastAPI()
 
+# Global values, Provided by ICICI
+API_TEST_KEY = 'xUHvlTOtkLn37jnuG0Yp8zr2kivgRg6j'
+# Company name to be passed in header
+SRC_APP = 'Bankly'
+
 
 @app.get("/")
 def read_root():
+    """# Access root"""
     return {"Hello": "Go to /send-payload route"}
 
 
 @app.get("/send-payload/")
 # send request to ICICI server
 async def send_link_mobile_api_request():
+    """send request Limked Mobile Service API"""
 
     async with aiohttp.ClientSession() as session:
-
-        # Company name to be passed in header
-        src_app = 'Bankly'
         # Generate random string for request id
         requist_id = ''.join(random.SystemRandom().choice(
             string.ascii_uppercase + string.digits) for _ in range(32))
-        # Provided by ICICI
-        api_key = 'xUHvlTOtkLn37jnuG0Yp8zr2kivgRg6j'
-        # We are using MODE_CBC, so opanHashAlgorithm value is 'SHA1'.
-        open_hash_algorithm = 'SHA1'
-
-        # Service, using 'LinkedMobile for testing"
-        service = 'LinkedMobile'
 
         header = {'Content-Type': 'application/json',
-                  "apikey": api_key, "SrcApp": src_app}
-        # Business Data to be send to ICICI server
+                  "apikey": API_TEST_KEY, "SrcApp": SRC_APP}
 
+        # Business Data to be send to ICICI server
         payload = """"<xml>
                 <ReferenceNumber>20190704000084</ReferenceNumber>
                 <MerchantId>FLP0000001</MerchantId>
@@ -80,9 +79,9 @@ async def send_link_mobile_api_request():
 
         data = {
             "requestId": requist_id,
-            "service": service,
+            "service": 'LinkedMobile',
             "encryptedKey": enc_session_key,
-            "oaepHashingAlgorithm": open_hash_algorithm,
+            "oaepHashingAlgorithm": 'SHA1',  # We are using MODE_CBC, as documented
             "iv": iv,
             "encryptedData": cypher_text,
         }
