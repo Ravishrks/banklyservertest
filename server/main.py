@@ -37,7 +37,7 @@ async def send_link_mobile_api_request():
         # Provided by ICICI
         api_key = 'xUHvlTOtkLn37jnuG0Yp8zr2kivgRg6j'
         # We are using MODE_CBC, so opanHashAlgorithm value is 'SHA1'.
-        oaen_hash_algorithm = 'SHA1'
+        open_hash_algorithm = 'SHA1'
 
         # Service, using 'LinkedMobile for testing"
         service = 'LinkedMobile'
@@ -73,7 +73,7 @@ async def send_link_mobile_api_request():
             "requestId": requist_id,
             "service": service,
             "encryptedKey": enc_session_key,
-            "oaepHashingAlgorithm": oaen_hash_algorithm,
+            "oaepHashingAlgorithm": open_hash_algorithm,
             "iv": iv,
             "encryptedData": cypher_text,
         }
