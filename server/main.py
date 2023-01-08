@@ -5,7 +5,6 @@ import string
 from base64 import b64encode
 
 
-
 from fastapi import FastAPI
 import aiohttp
 
