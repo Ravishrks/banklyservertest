@@ -70,7 +70,7 @@ async def send_monthly_statement_api_request():
             "encryptedKey": b64encode(enc_session_key).decode('utf-8'),
             "oaepHashingAlgorithm": 'SHA1',  # We are using MODE_CBC, as documented
             "iv": iv,
-            "encryptedData": b64encode(enc_session_key.join(ct_bytes)).decode('utf-8'),
+            "encryptedData": b64encode(cipher_aes.iv.join(ct_bytes)).decode('utf-8'),
             # "clientInfo": "",
             # "optionalParam": ""
         }
