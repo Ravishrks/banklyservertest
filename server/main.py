@@ -66,7 +66,8 @@ async def send_link_mobile_api_request():
 
         request_data = {
             "requestId": requist_id,  # Not mandatory
-            "service": 'LinkedMobile',
+            "serviceType": 'LinkedMobile',
+            # "service": 'LinkedMobile',
             "encryptedKey": b64encode(enc_session_key).decode('utf-8'),
             "oaepHashingAlgorithm": 'SHA1',  # We are using MODE_CBC, as documented
             "iv": iv,
