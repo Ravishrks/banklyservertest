@@ -75,7 +75,7 @@ async def send_link_mobile_api_request():
 
         endpoint_url = 'https://apibankingonesandbox.icicibank.com/api/v1/pcms-chw?service=LinkedMobile'
 
-        async with session.post(endpoint_url,header=header) as response:
+        async with session.post(endpoint_url, headers=header,) as response:
             #  decrypting response
             print(request_data)
 
