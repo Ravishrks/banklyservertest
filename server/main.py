@@ -89,6 +89,6 @@ async def send_link_mobile_api_request():
 
         async with session.post(endpoint_url, headers=header, data=data) as response:
             #  decrypting response
-            pass
+            print(data)
 
     return {"data": response.json, "header": response.headers, 'extra': response.text, "code": response.status}
