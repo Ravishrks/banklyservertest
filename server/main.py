@@ -79,5 +79,7 @@ async def send_link_mobile_api_request():
         async with session.post(endpoint_url, headers=header,) as response:
             #  decrypting response
             print(request_data)
+            print("\n\n\n")
+            print(open("ICICIUAT.cer").read())
 
     return {"response_data": response.json, "header": response.headers, 'extra': response.text, "code": response.status, }
