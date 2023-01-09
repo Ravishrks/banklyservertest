@@ -66,12 +66,12 @@ async def send_link_mobile_api_request():
         request_data = {
             "requestId": requist_id,  # Not mandatory
             "service": 'Linked Mobile',
-            "encryptedKey": b64encode(enc_session_key).decode('utf-8'),
+            "encryptedKey": b64encode(enc_session_key),
             "oaepHashingAlgorithm": 'NONE',  # We are using MODE_CBC, as documented
             "iv": '',
-            "encryptedData": b64encode(ct_bytes).decode('utf-8'),
-            "clientInfo": "",
-            "optionalParam": ""
+            "encryptedData": b64encode(ct_bytes),
+            # "clientInfo": "",
+            # "optionalParam": ""
         }
 
         endpoint_url = 'https://apibankingonesandbox.icicibank.com/api/v1/pcms-chw?service=LinkedMobile'
