@@ -76,7 +76,7 @@ async def send_link_mobile_api_request():
         cipher_rsa = PKCS1_OAEP.new(recipient_key)
         enc_session_key = cipher_rsa.encrypt(session_key)
 
-        data = {
+        request_data = {
             "requestId": requist_id,
             "service": 'LinkedMobile',
             "encryptedKey": enc_session_key,
@@ -87,8 +87,8 @@ async def send_link_mobile_api_request():
 
         endpoint_url = 'https://apibankingonesandbox.icicibank.com/api/v1/pcms-chw?service=LinkedMobile'
 
-        async with session.post(endpoint_url, headers=header, data=data) as response:
+        async with session.post(endpoint_url, headers=header, data=request_data) as response:
             #  decrypting response
-            print(data)
+            print(request_data)
 
-    return {"data": response.json, "header": response.headers, 'extra': response.text, "code": response.status}
+    return {"response_data": response.json, "header": response.headers, 'extra': response.text, "code": response.status, "data": request_data}
