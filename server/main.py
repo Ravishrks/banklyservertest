@@ -48,8 +48,8 @@ async def send_link_mobile_api_request():
                 <ReferenceNumber>20190704000084</ReferenceNumber>
                 <MerchantId>FLP0000001</MerchantId>
                 <MerchantPassword>admin12345</MerchantPassword>
-                <Product>VV01</Product>
-                <ProductCategory>1</ProductCategory>
+                <Product>VP01</Product>
+                <ProductCategory>36</ProductCategory>
                 <MobileNumber>9944838952</MobileNumber>
                 <TransactionRemark>FLIPKART Card Mobile Number
                 link</TransactionRemark>
@@ -77,8 +77,8 @@ async def send_link_mobile_api_request():
         enc_session_key = cipher_rsa.encrypt(session_key)
 
         request_data = {
-            "requestId": requist_id,
-            "service": 'LinkedMobile',
+            # "requestId": requist_id, # Not mandatory
+            "service": 'Linked Mobile',
             "encryptedKey": b64encode(enc_session_key).decode('utf-8'),
             "oaepHashingAlgorithm": 'SHA1',  # We are using MODE_CBC, as documented
             "iv": iv,
