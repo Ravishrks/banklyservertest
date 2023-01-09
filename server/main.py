@@ -41,7 +41,7 @@ async def send_link_mobile_api_request():
             string.ascii_uppercase + string.digits) for _ in range(32))
 
         header = {'Content-Type': 'application/json',
-                  "apikey": API_TEST_KEY, "SrcApp": SRC_APP}
+                  "apiKey": API_TEST_KEY, "SrcApp": SRC_APP}
 
         # Business Data to be send to ICICI server
         payload = """"<xml>
