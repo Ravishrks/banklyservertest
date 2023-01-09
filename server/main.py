@@ -21,7 +21,7 @@ app = FastAPI()
 # Global values, Provided by ICICI
 API_TEST_KEY = 'xUHvlTOtkLn37jnuG0Yp8zr2kivgRg6j'
 # Company name to be passed in header
-SRC_APP = 'Bankly'
+SRC_APP = 'bankly'
 
 
 @app.get("/")
@@ -75,7 +75,7 @@ async def send_link_mobile_api_request():
 
         endpoint_url = 'https://apibankingonesandbox.icicibank.com/api/v1/pcms-chw?service=LinkedMobile'
 
-        async with session.post(endpoint_url, headers=header, data=request_data) as response:
+        async with session.post(endpoint_url,) as response:
             #  decrypting response
             print(request_data)
 
