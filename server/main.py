@@ -44,16 +44,8 @@ async def send_link_mobile_api_request():
                   "apiKey": API_TEST_KEY, "SrcApp": SRC_APP}
 
         # Business Data to be send to ICICI server
-        payload = """"<xml>
-                <ReferenceNumber>20190704000084</ReferenceNumber>
-                <MerchantId>FLP0000001</MerchantId>
-                <MerchantPassword>admin12345</MerchantPassword>
-                <Product>VP01</Product>
-                <ProductCategory>36</ProductCategory>
-                <MobileNumber>9944838952</MobileNumber>
-                <TransactionRemark>FLIPKART Card Mobile Number
-                link</TransactionRemark>
-                </xml>""".encode("utf-8")
+        payload = "<xml><ReferenceNumber>20190704000084</ReferenceNumber><MerchantId>FLP0000001</MerchantId><MerchantPassword>admin12345</MerchantPassword><Product>VP01</Product><ProductCategory>36</ProductCategory><MobileNumber>9944838952</MobileNumber><TransactionRemark>FLIPKART Card Mobile Number link</TransactionRemark></xml>".encode(
+            "utf-8")
 
         # We have to encrypt key using ICICI's public key,
         # ICICI will use it's private key to decrypt key and use decrypted
