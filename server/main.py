@@ -21,7 +21,7 @@ app = FastAPI()
 # Global values, Provided by ICICI
 API_TEST_KEY = 'xUHvlTOtkLn37jnuG0Yp8zr2kivgRg6j'
 # Company name to be passed in header
-SRC_APP = 'bankly'
+SRC_APP = 'Bankly'
 
 
 @app.get("/")
@@ -57,8 +57,7 @@ async def send_link_mobile_api_request():
         ct_bytes = cipher_aes.encrypt(pad(payload, AES.block_size))
 
         # Reading RSA key from stored file
-        rsa_key_file = open('ICICIUAT.cer', 'r')
-        recipient_key = RSA.import_key(rsa_key_file.read())
+        recipient_key = RSA.import_key(open("ICICIUAT.cer").read())
 
         # Encrypt the session key with the public RSA key
         cipher_rsa = PKCS1_OAEP.new(recipient_key)
