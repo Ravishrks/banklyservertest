@@ -41,7 +41,7 @@ async def send_link_mobile_api_request():
             string.ascii_uppercase + string.digits) for _ in range(32))
 
         header = {'Content-Type': 'application/json',
-                  "apikey": 'API_TEST_KEY', "SrcApp": SRC_APP}
+                  "apikey": API_TEST_KEY, "SrcApp": SRC_APP}
 
         # Business Data to be send to ICICI server
         payload = "<xml><ReferenceNumber>20190704000084</ReferenceNumber><MerchantId>FLP0000001</MerchantId><MerchantPassword>admin12345</MerchantPassword><Product>VP01</Product><ProductCategory>36</ProductCategory><MobileNumber>9944838952</MobileNumber><TransactionRemark>FLIPKART Card Mobile Number link</TransactionRemark></xml>".encode(
