@@ -33,7 +33,7 @@ def read_root():
 @app.get("/send-payload/")
 # send request to ICICI server
 async def send_link_mobile_api_request():
-    """send request Limked Mobile Service API"""
+    """send request to Linked Mobile Service API"""
 
     async with aiohttp.ClientSession() as session:
         # Generate random string for request id
@@ -69,7 +69,7 @@ async def send_link_mobile_api_request():
         cypher_text = b64encode(ct_bytes).decode('utf-8')
 
         # Reading RSA key from stored file
-        rsa_key_file = open('../rsa_key/ICICIUAT.cer', 'r')
+        rsa_key_file = open('ICICIUAT.cer', 'r')
         recipient_key = RSA.import_key(rsa_key_file.read())
 
         # Encrypt the session key with the public RSA key
