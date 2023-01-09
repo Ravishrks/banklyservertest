@@ -61,12 +61,8 @@ async def send_link_mobile_api_request():
 
         # key to be used to encrypt payload
         session_key = get_random_bytes(16)
-        cipher_aes = AES.new(session_key, AES.MODE_CBC)
+        cipher_aes = AES.new(session_key, AES.MODE_ECB)
         ct_bytes = cipher_aes.encrypt(pad(payload, AES.block_size))
-        iv = b64encode(cipher_aes.iv).decode('utf-8')
-
-        # encrypted data
-        cypher_text = b64encode(ct_bytes).decode('utf-8')
 
         # Reading RSA key from stored file
         rsa_key_file = open('ICICIUAT.cer', 'r')
@@ -77,12 +73,12 @@ async def send_link_mobile_api_request():
         enc_session_key = cipher_rsa.encrypt(session_key)
 
         request_data = {
-            # "requestId": requist_id, # Not mandatory
+            "requestId": requist_id,  # Not mandatory
             "service": 'Linked Mobile',
             "encryptedKey": b64encode(enc_session_key).decode('utf-8'),
-            "oaepHashingAlgorithm": 'SHA1',  # We are using MODE_CBC, as documented
-            "iv": iv,
-            "encryptedData": cypher_text,
+            "oaepHashingAlgorithm": 'NONE',  # We are using MODE_CBC, as documented
+            "iv": '',
+            "encryptedData": b64encode(ct_bytes).decode('utf-8'),
         }
 
         endpoint_url = 'https://apibankingonesandbox.icicibank.com/api/v1/pcms-chw?service=LinkedMobile'
@@ -91,4 +87,4 @@ async def send_link_mobile_api_request():
             #  decrypting response
             print(request_data)
 
-    return {"response_data": response.json, "header": response.headers, 'extra': response.text, "code": response.status,}
+    return {"response_data": response.json, "header": response.headers, 'extra': response.text, "code": response.status, }
