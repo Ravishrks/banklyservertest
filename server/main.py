@@ -32,8 +32,8 @@ def read_root():
 
 @app.get("/send-payload/")
 # send request to ICICI server
-async def send_link_mobile_api_request():
-    """send request to Linked Mobile Service API"""
+async def send_monthly_statement_api_request():
+    """send request to Monthly Statement Service API"""
 
     async with aiohttp.ClientSession() as session:
         # Generate random string for request id
@@ -44,7 +44,7 @@ async def send_link_mobile_api_request():
                   "apikey": API_TEST_KEY, "SrcApp": SRC_APP}
 
         # Business Data to be send to ICICI server
-        payload = "<xml><ReferenceNumber>20190704000084</ReferenceNumber><MerchantId>FLP0000001</MerchantId><MerchantPassword>admin12345</MerchantPassword><Product>VP01</Product><ProductCategory>36</ProductCategory><MobileNumber>9944838952</MobileNumber><TransactionRemark>FLIPKART Card Mobile Number link</TransactionRemark></xml>".encode(
+        payload = "<xml><CardNumber>4629523900353669</CardNumber><MerchantId>FLP0000001</MerchantId><MerchantPassword>admin12345</MerchantPassword><ReferenceNumber>404455296201</ReferenceNumber><TransactionRemark>Latest transactions </TransactionRemark></xml>".encode(
             "utf-8")
 
         # We have to encrypt key using ICICI's public key,
@@ -61,13 +61,13 @@ async def send_link_mobile_api_request():
         recipient_key = RSA.import_key(open("ICICIUAT.cer").read())
 
         # Encrypt the session key with the public RSA key
-        cipher_rsa = PKCS1_OAEP.new(recipient_key) # Default is SHA1
+        cipher_rsa = PKCS1_OAEP.new(recipient_key)  # Default is SHA1
         enc_session_key = cipher_rsa.encrypt(session_key)
 
         request_data = {
             "requestId": requist_id,  # Not mandatory
-            "serviceType": 'LinkedMobile',
-            # "service": 'LinkedMobile',
+            # "serviceType": 'LinkedMobile',
+            "service": 'MonthlyStatement',
             "encryptedKey": b64encode(enc_session_key).decode('utf-8'),
             "oaepHashingAlgorithm": 'SHA1',  # We are using MODE_CBC, as documented
             "iv": iv,
@@ -76,12 +76,11 @@ async def send_link_mobile_api_request():
             "optionalParam": ""
         }
 
-        endpoint_url = 'https://apibankingonesandbox.icicibank.com/api/v1/pcms-chw?service=LinkedMobile'
+        endpoint_url = 'https://apibankingonesandbox.icicibank.com/api/v1/pcms-chw?service=MonthlyStatement'
 
-        async with session.post(endpoint_url, headers=header,) as response:
+        async with session.post(endpoint_url, headers=header,data=request_data) as response:
             #  decrypting response
             print(request_data)
             print("\n\n\n")
-           
 
     return {"response_data": response.json, "header": response.headers, 'extra': response.text, "code": response.status, }
