@@ -54,17 +54,15 @@ async def send_monthly_statement_api_request():
         # key to be used to encrypt payload
         session_key = get_random_bytes(16)
         cipher_aes = AES.new(session_key, AES.MODE_CBC)
-        ct_bytes = cipher_aes.encrypt(
-            pad(bytes(payload, 'utf-8'), AES.block_size))
+        ct_bytes = cipher_aes.encrypt(pad(payload.encode(), AES.block_size))
         iv = b64encode(cipher_aes.iv).decode('utf-8')
 
         # Reading RSA key from stored file
         recipient_key = RSA.import_key(open("ICICIUAT.cer").read())
 
         # Encrypt the session key with the public RSA key
-        cipher_rsa = PKCS1_OAEP.new(
-            recipient_key)  # Default is SHA1
-        enc_session_key = cipher_rsa.encrypt(session_key)
+        cipher_rsa = PKCS1_OAEP.new(recipient_key)  # Default is SHA1
+        enc_session_key = cipher_rsa.encrypt(session_key.decode())
 
         request_data = {
             "requestId": requist_id,  # Not mandatory
