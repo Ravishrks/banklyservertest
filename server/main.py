@@ -69,7 +69,7 @@ async def send_monthly_statement_api_request():
             "requestId": requist_id,  # Not mandatory
             "service": 'LOP',
             "encryptedKey": b64encode(enc_session_key).decode('utf-8'),
-            "oaepHashingAlgorithm": 'SHA1',
+            "oaepHashingAlgorithm": 'NONE',
             "iv": iv,
             "encryptedData": b64encode(ct_bytes).decode('utf-8'),
             "clientInfo": "",
