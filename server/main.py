@@ -40,8 +40,8 @@ async def send_monthly_statement_api_request():
         requist_id = ''.join(random.SystemRandom().choice(
             string.ascii_uppercase + string.digits) for _ in range(32))
 
-        header = {'Content-type': 'application/json',
-                  "apikey": API_TEST_KEY, "SrcApp": SRC_APP, "Accept": 'application/json'}
+        header = {'Content-Type': 'application/json',
+                  "apikey": API_TEST_KEY, "SrcApp": SRC_APP}
 
         # Business Data to be send to ICICI server
         payload = "<xml><ReferenceNumber>20190704000084</ReferenceNumber><MerchantId>FLP0000001</MerchantId><MerchantPassword>admin12345</MerchantPassword><Product>VV01</Product><ProductCategory>1</ProductCategory><MobileNumber>9944838952</MobileNumber><TransactionRemark>FLIPKART Card Mobile Number link</TransactionRemark></xml>".encode(
@@ -70,7 +70,7 @@ async def send_monthly_statement_api_request():
             "encryptedKey": b64encode(enc_session_key).decode('utf-8'),
             "oaepHashingAlgorithm": 'SHA1',  # We are using MODE_CBC, as documented
             "iv": iv,
-            "encryptedData": b64encode(cipher_aes.iv + ct_bytes).decode('utf-8'),
+            "encryptedData": b64encode(ct_bytes).decode('utf-8'),
             "clientInfo": "",
             "optionalParam": ""
         }
