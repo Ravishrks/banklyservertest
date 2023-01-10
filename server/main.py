@@ -66,17 +66,16 @@ async def send_monthly_statement_api_request():
 
         request_data = {
             "requestId": requist_id,  # Not mandatory
-            "service": 'LOP',
+            "service": 'LinkedMobile',
             "encryptedKey": b64encode(enc_session_key).decode('utf-8'),
-            "oaepHashingAlgorithm": 'SHA1',  # We are using MODE_CBC, as documented
+            "oaepHashingAlgorithm": 'NONE',  
             "iv": iv,
             "encryptedData": b64encode(ct_bytes).decode('utf-8'),
             "clientInfo": "",
             "optionalParam": ""
         }
 
-        endpoint_url = 'https://apigwuat.icicibank.com/api/v1/pcms-chw?service=LinkedMobile'
-        # endpoint_url = 'https://apibankingonesandbox.icicibank.com/api/v1/pcms-chw?service=LinkedMobile'
+        endpoint_url = 'https://apibankingonesandbox.icicibank.com/api/v1/pcms-chw?service=LinkedMobile'
 
         async with session.post(endpoint_url, headers=header, data=request_data) as response:
             #  decrypting response
