@@ -10,6 +10,7 @@ import aiohttp
 
 from Crypto.Cipher import AES, PKCS1_OAEP
 from Crypto.PublicKey import RSA
+from Crypto.Hash import SHA256
 
 
 from Crypto.Random import get_random_bytes
@@ -61,14 +62,14 @@ async def send_monthly_statement_api_request():
         recipient_key = RSA.import_key(open("ICICIUAT.cer").read())
 
         # Encrypt the session key with the public RSA key
-        cipher_rsa = PKCS1_OAEP.new(recipient_key)  # Default is SHA1
+        cipher_rsa = PKCS1_OAEP.new(recipient_key,hashAlgo=SHA256)  # Default is SHA1
         enc_session_key = cipher_rsa.encrypt(session_key)
 
         request_data = {
             "requestId": requist_id,  # Not mandatory
-            "service": 'LinkedMobile',
+            "service": 'LOP',
             "encryptedKey": b64encode(enc_session_key).decode('utf-8'),
-            "oaepHashingAlgorithm": 'NONE',  
+            "oaepHashingAlgorithm": 'NONE',
             "iv": iv,
             "encryptedData": b64encode(ct_bytes).decode('utf-8'),
             "clientInfo": "",
