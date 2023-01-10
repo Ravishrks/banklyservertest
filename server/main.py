@@ -21,7 +21,7 @@ app = FastAPI()
 # Global values, Provided by ICICI
 API_TEST_KEY = 'xUHvlTOtkLn37jnuG0Yp8zr2kivgRg6j'
 # Company name to be passed in header
-SRC_APP = 'Bankly'
+SRC_APP = 'bankly'
 
 
 @app.get("/")
@@ -40,11 +40,12 @@ async def send_monthly_statement_api_request():
         requist_id = ''.join(random.SystemRandom().choice(
             string.ascii_uppercase + string.digits) for _ in range(32))
 
-        header = {'Content-Type': 'application/json',
-                  "apikey": API_TEST_KEY, "SrcApp": SRC_APP}
+        header = {'Content-type': 'application/json',
+                  "apikey": API_TEST_KEY, "SrcApp": SRC_APP, "Accept": 'application/json'}
 
         # Business Data to be send to ICICI server
-        payload = "<xml><ReferenceNumber>20190704000084</ReferenceNumber><MerchantId>FLP0000001</MerchantId><MerchantPassword>admin12345</MerchantPassword><Product>VV01</Product><ProductCategory>1</ProductCategory><MobileNumber>9944838952</MobileNumber><TransactionRemark>FLIPKART Card Mobile Number link</TransactionRemark></xml>".encode("utf-8")
+        payload = "<xml><ReferenceNumber>20190704000084</ReferenceNumber><MerchantId>FLP0000001</MerchantId><MerchantPassword>admin12345</MerchantPassword><Product>VV01</Product><ProductCategory>1</ProductCategory><MobileNumber>9944838952</MobileNumber><TransactionRemark>FLIPKART Card Mobile Number link</TransactionRemark></xml>".encode(
+            "utf-8")
 
         # We have to encrypt key using ICICI's public key,
         # ICICI will use it's private key to decrypt key and use decrypted
