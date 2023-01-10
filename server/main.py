@@ -52,7 +52,8 @@ async def send_monthly_statement_api_request():
         # key to decrypt encrypted data
 
         # key to be used to encrypt payload
-        session_key = get_random_bytes(16)
+        session_key = 'as11111111111111'.encode()
+        # session_key = get_random_bytes(16)
         cipher_aes = AES.new(session_key, AES.MODE_CBC)
         ct_bytes = cipher_aes.encrypt(pad(payload.encode(), AES.block_size))
         iv = b64encode(cipher_aes.iv).decode('utf-8')
@@ -62,7 +63,7 @@ async def send_monthly_statement_api_request():
 
         # Encrypt the session key with the public RSA key
         cipher_rsa = PKCS1_OAEP.new(recipient_key)  # Default is SHA1
-        enc_session_key = cipher_rsa.encrypt(session_key.decode())
+        enc_session_key = cipher_rsa.encrypt(session_key)
 
         request_data = {
             "requestId": requist_id,  # Not mandatory
