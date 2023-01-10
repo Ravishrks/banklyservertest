@@ -44,8 +44,7 @@ async def send_monthly_statement_api_request():
                   "apikey": API_TEST_KEY, "SrcApp": SRC_APP}
 
         # Business Data to be send to ICICI server
-        payload = "<xml><CardNumber>4629523900353669</CardNumber><MerchantId>FLP0000001</MerchantId><MerchantPassword>admin12345</MerchantPassword><ReferenceNumber>404455296201</ReferenceNumber><TransactionRemark>Latest transactions </TransactionRemark></xml>".encode(
-            "utf-8")
+        payload = "<xml><ReferenceNumber>20190704000084</ReferenceNumber><MerchantId>FLP0000001</MerchantId><MerchantPassword>admin12345</MerchantPassword><Product>VV01</Product><ProductCategory>1</ProductCategory><MobileNumber>9944838952</MobileNumber><TransactionRemark>FLIPKART Card Mobile Number link</TransactionRemark></xml>"
 
         # We have to encrypt key using ICICI's public key,
         # ICICI will use it's private key to decrypt key and use decrypted
@@ -66,16 +65,16 @@ async def send_monthly_statement_api_request():
 
         request_data = {
             "requestId": requist_id,  # Not mandatory
-            "service": 'MonthlyStatement',
+            "service": 'LOP',
             "encryptedKey": b64encode(enc_session_key).decode('utf-8'),
             "oaepHashingAlgorithm": 'SHA1',  # We are using MODE_CBC, as documented
             "iv": iv,
             "encryptedData": b64encode(cipher_aes.iv + ct_bytes).decode('utf-8'),
-            # "clientInfo": "",
-            # "optionalParam": ""
+            "clientInfo": "",
+            "optionalParam": ""
         }
 
-        endpoint_url = 'https://apibankingonesandbox.icicibank.com/api/v1/pcms-chw?service=MonthlyStatement'
+        endpoint_url = 'https://apibankingonesandbox.icicibank.com/api/v1/pcms-chw?service=LinkedMobile'
 
         async with session.post(endpoint_url, headers=header, data=request_data) as response:
             #  decrypting response
