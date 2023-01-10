@@ -52,8 +52,7 @@ async def send_monthly_statement_api_request():
         # key to decrypt encrypted data
 
         # key to be used to encrypt payload
-        session_key = 'as11111111111111'.encode()
-        # session_key = get_random_bytes(16)
+        session_key = get_random_bytes(16)
         cipher_aes = AES.new(session_key, AES.MODE_CBC)
         ct_bytes = cipher_aes.encrypt(pad(payload.encode(), AES.block_size))
         iv = b64encode(cipher_aes.iv).decode('utf-8')
@@ -83,4 +82,4 @@ async def send_monthly_statement_api_request():
             print(request_data)
             print("\n\n\n")
 
-    return {"response_data": response.json, "header": response.headers, 'extra': response.text, "code": response.status, }
+    return {"response_data": response._body, "header": response.headers, 'extra': response.text, "code": response.status, }
