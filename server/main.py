@@ -75,7 +75,7 @@ async def send_monthly_statement_api_request():
             "optionalParam": ""
         }
 
-        endpoint_url = 'https:///apigwuat.icicibank.com:8443/api/v1/pcms-chw?service=LinkedMobile'
+        endpoint_url = 'https://apigwuat.icicibank.com:8443/api/v1/pcms-chw?service=LinkedMobile'
         # endpoint_url = 'https://apibankingonesandbox.icicibank.com/api/v1/pcms-chw?service=LinkedMobile'
 
         async with session.post(endpoint_url, headers=header, data=request_data) as response:
