@@ -62,9 +62,9 @@ async def send_api_request():
         recipient_key = RSA.import_key(open("ICICIUAT.cer").read())
 
         # Encrypt the session key with the public RSA key
-        h = SHA384.new()
+      
         cipher_rsa = PKCS1_OAEP.new(
-            recipient_key, hashAlgo=h)  # Default is SHA1
+            recipient_key, hashAlgo=SHA384)  # Default is SHA1
 
         enc_session_key = cipher_rsa.encrypt(session_key)
 
