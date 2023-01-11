@@ -61,16 +61,27 @@ async def send_api_request():
         recipient_key = RSA.import_key(open("ICICIUAT.cer").read())
 
         # Encrypt the session key with the public RSA key
-        cipher_rsa = PKCS1_OAEP.new(recipient_key,hashAlgo=SHA1)  # Default is SHA1
+        cipher_rsa = PKCS1_OAEP.new(
+            recipient_key, hashAlgo=SHA1)  # Default is SHA1
         enc_session_key = cipher_rsa.encrypt(session_key)
 
+        # request_data = {
+        #     "requestId": requist_id,  # Not mandatory
+        #     "service": 'LOP',
+        #     "encryptedKey": b64encode(enc_session_key).decode('utf-8'),
+        #     "oaepHashingAlgorithm": 'SHA1',
+        #     "iv": iv,
+        #     "encryptedData": b64encode(ct_bytes).decode('utf-8'),
+        #     "clientInfo": "",
+        #     "optionalParam": ""
+        # }
         request_data = {
-            "requestId": requist_id,  # Not mandatory
+            "requestId": '',  # Not mandatory
             "service": 'LOP',
-            "encryptedKey": b64encode(enc_session_key).decode('utf-8'),
-            "oaepHashingAlgorithm": 'SHA1',
-            "iv": iv,
-            "encryptedData": b64encode(ct_bytes).decode('utf-8'),
+            "encryptedKey": 'oG5mU1JJNBuwQaSLKb3wfRZks/cT2Vo2yBNNuqjNHDWEC144WxC8iKqBpJAgq7reFKC4sHNUmNPRDya1AvmQ7x1L+3EAdEs9FEWNurZuWTvZpk4y7JrGhg0rz9KptBf+JfJUkSMo7NR3Saxel6EYtckkDr3AGW7WJZmhcEoAMMXRws/hLVmaNHC/nOjCNqqBd4IOOAzdJh/HADRVI+YAJKT8dE4x9NTl+UX1zAooWhza+TsWEHfxzQIa7zai7WSa/wiJD3uD7mk5vT1WY/fKJBquCuzM7l35vigDhmb7dLVLuX8VMiNQrtErWNI0uVaag1jg+uZUtyDSxjPFi5yEpKVVc7+T503IDnCvkCFDygqasDsPL24qOjYk4XavTZvwGuPAdYNNkVnLzVElEhg4zS2ye+fa/8fZiMt/3fwYeN9dgn9i5R6VOFbXSuZJYPSci9k0oqz73h1nzFtps60rUEDoGIkGvm9waJU3W78VH5mIdGfGvvJjiKIuVHmi/huzEX9v4w3mW7RDGgmOuKImkqki+XWgyB0JvVmsLdO+cBaym/seZP3+zdfhO9AWSI2tDLD4Vf0jDjzoDSFN2mzUFgHK9mbtbXgvsnReoGqx/KsivzmZNLmDmtg8eR4Z9LnLni4rl4OtkDv5y/mxMtL3MBUUUajkw6OS6NnhEG895yo=v',
+            "oaepHashingAlgorithm": 'NONE',
+            "iv": '',
+            "encryptedData": "wBJSefFsnJVlobh1cJR553w6Ay6b8/2frCjxvdZ1Bsnxztsul7Ha8lFl4PoZD+IhdlRShWdKgz3yJYIisGV/KKpyMSY3DILOpbkqEa0Qq0g=",
             "clientInfo": "",
             "optionalParam": ""
         }
