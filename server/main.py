@@ -52,8 +52,7 @@ async def send_api_request():
         # key to decrypt encrypted data
 
         # key to be used to encrypt payload
-        # session_key = get_random_bytes(16)
-        session_key = random.getrandbits(128)
+        session_key = get_random_bytes(32)
         cipher_aes = AES.new(session_key, AES.MODE_CBC)
         ct_bytes = cipher_aes.encrypt(pad(payload.encode(), AES.block_size))
         iv = b64encode(cipher_aes.iv).decode('utf-8')
