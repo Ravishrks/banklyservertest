@@ -10,7 +10,6 @@ import aiohttp
 
 from Crypto.Cipher import AES, PKCS1_OAEP
 from Crypto.PublicKey import RSA
-from Crypto.Hash import SHA1, SHA384
 
 
 from Crypto.Random import get_random_bytes
@@ -53,18 +52,17 @@ async def send_api_request():
 
         # key to be used to encrypt payload
         session_key = get_random_bytes(16)
-        # cipher_aes = AES.new(session_key, AES.MODE_CBC)
-        cipher_aes = AES.new(session_key, AES.MODE_ECB)
+        cipher_aes = AES.new(session_key, AES.MODE_CBC)
         ct_bytes = cipher_aes.encrypt(pad(payload.encode(), AES.block_size))
-        # iv = b64encode(cipher_aes.iv).decode('utf-8')
+        iv = b64encode(cipher_aes.iv).decode('utf-8')
 
         # Reading RSA key from stored file
         recipient_key = RSA.import_key(open("ICICIUAT.cer").read())
 
         # Encrypt the session key with the public RSA key
-      
+
         cipher_rsa = PKCS1_OAEP.new(
-            recipient_key, hashAlgo=SHA384)  # Default is SHA1
+            recipient_key)  # Default is SHA1
 
         enc_session_key = cipher_rsa.encrypt(session_key)
 
@@ -72,8 +70,8 @@ async def send_api_request():
             "requestId": requist_id,  # Not mandatory
             "service": 'LOP',
             "encryptedKey": b64encode(enc_session_key).decode('utf-8'),
-            "oaepHashingAlgorithm": 'NONE',
-            "iv": '',
+            "oaepHashingAlgorithm": 'SHA1',
+            "iv": iv,
             "encryptedData": b64encode(ct_bytes).decode('utf-8'),
             "clientInfo": "",
             "optionalParam": ""
